@@ -1,14 +1,27 @@
 from flask import Flask, request
+from flask_swagger_ui import get_swaggerui_blueprint
+
 books = []
 app = Flask(__name__)
 
+### swagger specific ###
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Seans-Python-Flask-REST-Boilerplate"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+### end swagger specific ###
 
 @app.route('/')
 def hello():
     q = request.args.get('q')
     print(q)
     return {"message": "Hello!"}, 201
-
 
 @app.route('/book', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def book():
