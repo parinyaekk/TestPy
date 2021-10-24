@@ -37,7 +37,7 @@ def disconnect_database():
 def GetBook():
   try:       
       connect_database()    
-      query = "select * from book" 
+      query = "select * from book where is_active != 0" 
       val = None 
       global mycursor
       mycursor.execute(query,val)
