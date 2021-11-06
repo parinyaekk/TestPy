@@ -52,8 +52,8 @@ def GetBook():
 def PostBook(author,price,title):
   try:       
       connect_database()
-      query = "INSERT INTO book (author, price, title, create_date, create_by) VALUES (%s, %s,%s, %s, %s)"
-      val = (author, price, title, datetime.datetime.utcnow(), 'INSERTBYAPI')    
+      query = "INSERT INTO book (author, price, title, is_active, create_date, create_by) VALUES (%s, %s,%s, %s, %s, %s)"
+      val = (author, price, title, 1, datetime.datetime.utcnow(), 'INSERTBYAPI')    
       global mycursor
       mycursor.execute(query,val)
       mydb.commit()
@@ -68,8 +68,8 @@ def PutBook(request):
   try:       
       connect_database()
       classrequest = Book(**request)
-      query = "UPDATE book SET create_by = %s WHERE id = %s"
-      val = ('UPDATEAPI',classrequest.id)    
+      query = "UPDATE book SET author = %s, price = %s, title = %s, update_by = %s WHERE id = %s"
+      val = (classrequest.author, classrequest.price, classrequest.title, 'UPDATEAPI', classrequest.id)    
       global mycursor
       mycursor.execute(query,val)
       mydb.commit()
