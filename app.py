@@ -11,14 +11,10 @@ import mysql_connection
 import json
  
 adata = {
-    "author": "A",
-    "create_by": None,
-    "create_date": "Sat, 23 Oct 2021 07:35:02 GMT",
-    "id": 1,
-    "price": "100.00",
-    "title": "BookA",
-    "update_by": None,
-    "update_date": "Sat, 23 Oct 2021 07:35:02 GMT"
+    "id":"1111",
+    "name": "Parinya Apaipak",
+    "nickname": "Boom",
+    "Role": "4",
 }
 
 lstadata = [{
@@ -33,9 +29,9 @@ lstadata = [{
 }]
 
 payload_data = {
-    "sub": "1111",
-    "name": "Parinya Apaipak",
-    "nickname": "Boom",
+    "sub": adata,
+    "iss": "PARINYADEV",
+    "aud": "PARINYADEV",
     "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=30)
 }
 
@@ -67,10 +63,10 @@ def hello():
     q = request.args.get('q')
     # a = Book(**adata)
     # q = parse_obj_as(List[Book], lstadata)
-    print(q)
-    detoken = jwt.decode(token, key='PARINYADEV', algorithms=['HS256', ])
-    return {"message": "jwt token: " + token + "| jwt detoken: " + str(detoken)}, 200
-    # return {"message": "Successfully", "status" : "0", "data": lstadata}, 200
+    print(token)
+    # detoken = jwt.decode(token, key='PARINYADEV', algorithms=['HS256', ])
+    # return {"message": "jwt token: " + token + "| jwt detoken: " + str(detoken)}, 200
+    return {"message": "Successfully", "status" : "0", "data": None}, 200
 
 @app.route('/connectmysql', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def mysql():
